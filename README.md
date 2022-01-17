@@ -16,18 +16,18 @@ HTML/
 
 JS/
 1. world
-2. character
-    sprite
-    movement
-    audio
-    actions
-    stats
-3. monsters
-    sprites
-    movement 
-    audio 
-    actions
-    stats
+2. character,
+    sprite,
+    movement,
+    audio,
+    actions,
+    stats,
+3. monsters,
+    sprites,
+    movement,
+    audio,
+    actions,
+    stats,
 
 CSS/
 1. MAKE IT SPARKLE 
