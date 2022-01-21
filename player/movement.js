@@ -31,7 +31,6 @@ class Player {
     //         this.position.y, this.width, this.height)
             if (this.image){
                 c.drawImage(image, this.a * 40, 0, 40, 30, this.position.x, this.position.y, 100, 100)
-            console.log('pptouch')
             }
     }
 
@@ -50,7 +49,7 @@ class Player {
 //         }
 // }
 
-    jump(){
+    fall(){
         if(this.position.y + this.height +
             this.velocity.y <= canvas.height)
         this.velocity.y += gravity
@@ -72,7 +71,7 @@ class Platform{
     constructor(){
        this.position = {
          x: 50,
-         y: 400  
+         y: 600  
        } 
        this.width = 200
        this.height = 30
@@ -87,6 +86,7 @@ class Platform{
 const player = new Player()
 const platform = new Platform()
 
+
 const keys = {
     right: {
         pressed: false
@@ -97,6 +97,9 @@ const keys = {
     jump: {
         pressed: false
     },
+    attack: {
+        pressed: false
+    },
 }
 
 function animate(){
@@ -105,13 +108,24 @@ function animate(){
     player.update()
     platform.draw()
 
-    if (keys.right.pressed){
+    if (keys.right.pressed && player.position.x < 1400){
         player.velocity.x = 7
-    } 
-
-    if (keys.left.pressed){
+    } else if (keys.left.pressed && player.position.x > 400){
         player.velocity.x = -7
-    } 
+    } else {
+        player.velocity.x = 0
+        if (keys.right.pressed){
+            platform.position.x -= 7
+        } else if (keys.left.pressed){
+           platform.position.x += 7 
+        }
+
+    }
+        
+    
+        
+
+   
                 // MESSY COLLISION DETECTION
     if (player.position.y + player.height <= platform.position.y
         && player.position.y + player.height + player.velocity.y >= platform.position.y
@@ -144,9 +158,20 @@ window.addEventListener('keydown', ({keyCode}) =>{
         case 87:
         console.log('jump')
         keys.jump.pressed = true
-        // player.velocity.y -= 20
-        player.jump()
+        player.velocity.y -= 20
+        // player.jump()
         break
+
+        case 83:
+        console.log('fall')
+        player.fall()
+        break
+
+        // case 32:
+        // console.log('attack')
+        // keys.attack.pressed = true
+        // player.attack()
+        // break
     }
 })
 window.addEventListener('keyup', ({keyCode}) =>{
@@ -170,6 +195,11 @@ window.addEventListener('keyup', ({keyCode}) =>{
         keys.jump.pressed = false
         player.velocity.y = 0
         break
+
+        // case 32:
+        // console.log('attack')
+        // keys.attack.pressed = false
+        // break
     }
 })
 
