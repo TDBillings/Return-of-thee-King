@@ -19,7 +19,7 @@ class Player {
             y: 1
         }
 
-        this.width = 100
+        this.width = 45
         this.height = 100
         this.image = false
         this.a = 0
@@ -31,7 +31,7 @@ class Player {
     //    c.fillRect(this.position.x,
     //         this.position.y, this.width, this.height)
             if (this.image){
-                c.drawImage(image, this.a * 40, 0, 40, 30, this.position.x, this.position.y, 100, 100)
+                c.drawImage(image, 10, 0, 30, 30, this.position.x, this.position.y, 100, 100)
             }
     }
 
@@ -101,7 +101,7 @@ function Generateplat(){
             Math.random()>0.75
         ){
             lastX +=width 
-            if(Math.random()>0.55) lastX +=width;
+            if(Math.random()>0.55) lastX +=Math.floor(width*(1+Math.random()));
             }
         lastX += width
         console.log(lastX, width)
