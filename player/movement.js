@@ -25,8 +25,9 @@ class Player {
         this.a = 0
     }
 
+        // sprite image/ character
     draw(){
-        // c.fillStyle = 'green'
+    //     c.fillStyle = 'green'
     //    c.fillRect(this.position.x,
     //         this.position.y, this.width, this.height)
             if (this.image){
@@ -53,7 +54,7 @@ class Player {
         if(this.position.y + this.height +
             this.velocity.y <= canvas.height)
         this.velocity.y += gravity
-        else this.velocity.y -= 20
+        else this.velocity.y -= 0
     }
     
     update() {
@@ -67,11 +68,12 @@ class Player {
     }
 }
 
+    // platforms
 class Platform{
-    constructor(){
+    constructor({x, y}){
        this.position = {
-         x: 50,
-         y: 600  
+         x,
+         y
        } 
        this.width = 200
        this.height = 30
@@ -84,8 +86,29 @@ class Platform{
 }
 
 const player = new Player()
-const platform = new Platform()
+// const platform = new Platform(50, 600)
+const platforms = [new Platform({x:50, y:600
+}), new Platform({x:150, y:700})]
 
+// Random platforms
+function Generateplat(){
+    var width  = 200 
+    var height = 30
+    var lastX = 50
+    for (let i = 0; i < 1000; i++){
+        platforms.push(new Platform({x:lastX, y:600}))
+        if(
+            Math.random()>0.75
+        ){
+            lastX +=width 
+            if(Math.random()>0.55) lastX +=width;
+            }
+        lastX += width
+        console.log(lastX, width)
+    }
+}
+
+Generateplat()
 
 const keys = {
     right: {
@@ -106,37 +129,48 @@ function animate(){
     requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
-    platform.draw()
+    platforms.forEach(platform => {
+        platform.draw()
+    })
+        
+        
+    
+    
 
+        // player movement
     if (keys.right.pressed && player.position.x < 1400){
         player.velocity.x = 7
     } else if (keys.left.pressed && player.position.x > 400){
         player.velocity.x = -7
     } else {
         player.velocity.x = 0
-        if (keys.right.pressed){
-            platform.position.x -= 7
-        } else if (keys.left.pressed){
-           platform.position.x += 7 
+        
+        // platform movement
+    if (keys.right.pressed){ platforms.forEach(platform => {
+        platform.position.x -= 7
+    })
+        
+} else if (keys.left.pressed){ platforms.forEach(platform => {
+            platform.position.x += 7 
+        })
+           
         }
 
     }
         
-    
-        
-
-   
-                // MESSY COLLISION DETECTION
+        // MESSY COLLISION DETECTION
+         platforms.forEach(platform => {
     if (player.position.y + player.height <= platform.position.y
-        && player.position.y + player.height + player.velocity.y >= platform.position.y
-        && player.position.x + player.width >= platform.position.x 
-        && player.position.x <= platform.position.x + platform.width){
-        player.velocity.y = 0
+    && player.position.y + player.height + player.velocity.y >= platform.position.y
+    && player.position.x + player.width >= platform.position.x 
+    && player.position.x <= platform.position.x + platform.width){
+    player.velocity.y = 0
     }
-    
+})
+
 
 }
-
+    
 animate()
 
 window.addEventListener('keydown', ({keyCode}) =>{
@@ -205,4 +239,7 @@ window.addEventListener('keyup', ({keyCode}) =>{
 
 image.addEventListener('load', e => {
     player.image = image
- });
+ });       
+
+   
+
