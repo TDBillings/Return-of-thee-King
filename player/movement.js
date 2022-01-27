@@ -1,5 +1,6 @@
 const canvas = document.querySelector('canvas')
 
+// c = context 
 const c = canvas.getContext('2d')
 const image = document.getElementById('source');
 
@@ -7,6 +8,8 @@ canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
 const gravity = 0.5
+// var distance = 0
+let scrolloffset= 0
 
 class Player {
     constructor(){
@@ -101,7 +104,8 @@ function Generateplat(){
             Math.random()>0.75
         ){
             lastX +=width 
-            if(Math.random()>0.55) lastX +=Math.floor(width*(1+Math.random()));
+            if(Math.random()>0.55) lastX +=Math.floor
+            (width*(1+Math.random()));
             }
         lastX += width
         console.log(lastX, width)
@@ -110,6 +114,7 @@ function Generateplat(){
 
 Generateplat()
 
+    // tracked inputs 
 const keys = {
     right: {
         pressed: false
@@ -125,8 +130,9 @@ const keys = {
     },
 }
 
+    // print world 
 function animate(){
-    requestAnimationFrame(animate)
+    let frame = requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
     platforms.forEach(platform => {
@@ -134,7 +140,16 @@ function animate(){
     })
         
         
-    
+    if (player.position.y > canvas.height - player.height){
+        cancelAnimationFrame(frame)
+        c.save()
+        c.font = "200px Ariel"
+        c.fillStyle = "red"
+        c.textAlign = "center"
+        c.fillText("You Fell", canvas.width/2, canvas.height/2)
+        c.restore()
+        console.log("DEAD")
+    }
     
 
         // player movement
@@ -146,18 +161,25 @@ function animate(){
         player.velocity.x = 0
         
         // platform movement
-    if (keys.right.pressed){ platforms.forEach(platform => {
+    if (keys.right.pressed){scrolloffset += 7
+         platforms.forEach(platform => {
         platform.position.x -= 7
     })
         
-} else if (keys.left.pressed){ platforms.forEach(platform => {
+} else if (keys.left.pressed){ scrolloffset -= 7
+             platforms.forEach(platform => {
             platform.position.x += 7 
         })
            
         }
 
     }
-        
+      
+    console.log(scrolloffset)
+    c.font = "60px Ariel"
+    c.textAlign = "left"
+    c.fillText("*" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
+
         // MESSY COLLISION DETECTION
          platforms.forEach(platform => {
     if (player.position.y + player.height <= platform.position.y
@@ -173,31 +195,32 @@ function animate(){
     
 animate()
 
+    // key pressed truthy?
 window.addEventListener('keydown', ({keyCode}) =>{
-    console.log(keyCode)
+    // console.log(keyCode)
 
     switch (keyCode){
         case 65:
-        console.log('left')
+        // console.log('left')
         keys.left.pressed = true
         // player.velocity.x -= 1
         break
 
         case 68:
-        console.log('right')
+        // console.log('right')
         keys.right.pressed = true
         // player.velocity.x += 1
         break
 
         case 87:
-        console.log('jump')
+        // console.log('jump')
         keys.jump.pressed = true
         player.velocity.y -= 20
         // player.jump()
         break
 
         case 83:
-        console.log('fall')
+        // console.log('fall')
         player.fall()
         break
 
@@ -209,23 +232,23 @@ window.addEventListener('keydown', ({keyCode}) =>{
     }
 })
 window.addEventListener('keyup', ({keyCode}) =>{
-    console.log(keyCode)
+    // console.log(keyCode)
 
     switch (keyCode){
         case 65:
-        console.log('left')
+        // console.log('left')
         keys.left.pressed = false
         player.velocity.x = 0
         break
 
         case 68:
-        console.log('right')
+        // console.log('right')
         keys.right.pressed = false
         player.velocity.x = 0
         break
 
         case 87:
-        console.log('jump')
+        // console.log('jump')
         keys.jump.pressed = false
         player.velocity.y = 0
         break
@@ -236,10 +259,12 @@ window.addEventListener('keyup', ({keyCode}) =>{
         // break
     }
 })
-
+// render sprite 
 image.addEventListener('load', e => {
     player.image = image
  });       
 
-   
+document.getElementById("Restart").addEventListener('click', e => {
+    location.reload()
+})
 
