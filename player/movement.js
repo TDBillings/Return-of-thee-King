@@ -10,6 +10,7 @@ canvas.height = window.innerHeight
 const gravity = 0.5
 // var distance = 0
 let scrolloffset = 0
+let highscore = Math.floor(window.localStorage.getItem("High Score"))
 
 // platforms
 class Platform {
@@ -109,6 +110,11 @@ function animate() {
         c.restore()
         deathButton()
         console.log("DEAD")
+        if(highscore < Math.floor(scrolloffset / 100)){
+            window.localStorage.setItem("High Score", Math.floor(scrolloffset / 100))
+        }
+
+        
     }
 
     function deathButton(){
@@ -147,8 +153,8 @@ function animate() {
     console.log(scrolloffset)
     c.font = "60px Ariel"
     c.textAlign = "left"
-    c.fillText("*" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
-    // c.fillText("*" + Math.floor(player.position.y) + "Yalms", 15, 85)
+    c.fillText("Current:" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
+    c.fillText("High Score:" + highscore + "Yalms", 15, 95)
 
     // MESSY COLLISION DETECTION
     platforms.forEach(platform => {
