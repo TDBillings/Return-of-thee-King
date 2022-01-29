@@ -35,3 +35,15 @@
 body{
   background-color: rgb(99, 95, 91);
 }
+
+#Current-Score{
+  z-index: 10;
+  position: absolute;
+  text-align: left;
+}
+
+#High-Score{
+  z-index: 10;
+  position: absolute;
+  text-align: right;
+}

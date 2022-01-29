@@ -3,14 +3,20 @@ const canvas = document.querySelector('canvas')
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 const c = canvas.getContext('2d')
+const backdrop = document.getElementById('backdrop');
+const backdropscroll = 8
+var backdropwidth = 0
+const wallimage = document.getElementById('background wall');
 const platformimage = document.getElementById('rock ledge');
 const gravity = 0.5
+const highscorediv = document.getElementById('High-Score')
+const currentscorediv = document.getElementById('Current-Score')
 const player = new Player()
 const platforms = []
 // const image = document.getElementById('source');
 
 let scrolloffset = 0
-let highscore = Math.floor(window.localStorage.getItem("High Score"))
+let highscore = Math.floor(window.localStorage.getItem("High-Score"))
 
 // platforms
 class Platform {
@@ -27,7 +33,8 @@ class Platform {
         this.platformimage = platformimage
     }
     draw() {
-       
+
+        c.drawImage(wallimage, this.position.x, this.position.y, this.width, canvas.height - this.position.y)
         c.drawImage(platformimage, this.position.x, this.position.y, 200, 40)
     }
 }
@@ -59,8 +66,10 @@ function Generateplat() {
         }
 
         lastX += width
-        lastY = nextY * 1
-    }
+        lastY = nextY 
+    } 
+
+    backdropwidth = platforms[platforms.length-1].position.x / backdropscroll
 }
 
 Generateplat()
@@ -85,6 +94,12 @@ const keys = {
 function animate() {
     let frame = requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
+
+    // image stretch to last X   NEED FIX
+    c.drawImage(backdrop, -scrolloffset / backdropscroll, 0, backdropwidth, backdrop.height)
+
+    
+
     player.update()
     platforms.forEach(platform => {
         platform.draw()
@@ -104,7 +119,7 @@ function animate() {
        
         // Save score to PC
         if(highscore < Math.floor(scrolloffset / 100)){
-            window.localStorage.setItem("High Score", Math.floor(scrolloffset / 100))
+            window.localStorage.setItem("High-Score", Math.floor(scrolloffset / 100))
         }
     }
     function restart(){
@@ -140,8 +155,10 @@ function animate() {
     // highScore tracker/ current distance 
     c.font = "60px Ariel"
     c.textAlign = "left"
-    c.fillText("Current:" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
-    c.fillText("High Score:" + highscore + "Yalms", 15, 95)
+    currentscorediv.textContent = "Current:" + Math.floor(scrolloffset / 100) + "Yalms"
+    highscorediv.textContent ="High Score:" + highscore + "Yalms" 
+    // c.fillText("Current:" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
+    // c.fillText("High Score:" + highscore + "Yalms", 15, 95)
 
     // MESSY COLLISION DETECTION
     platforms.forEach(platform => {

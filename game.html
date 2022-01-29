@@ -3,10 +3,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Runturn Of-Thy King</title>
 </head>
 <body>
     <!-- no border -->
+
+    <div id="High-Score" class="HighScore"></div>
+
+    <div id="Current-Score" class="CurrentScore"></div>
+
 
 <button id= "Restart" type="button" class="button">Try Again</button> 
 <style>
@@ -29,6 +34,18 @@
     <img id="rock ledge"
          src="./Assets/GamePlatform.jpg"
          width="200" height="40">
+  </div>
+
+  <div style="display:none;">
+    <img id="background wall"
+         src="./Assets/GameWallBackdrop.jpg"
+         width="1920" height="1080">
+  </div>
+
+  <div style="display:none;">
+    <img id="backdrop"
+         src="./Assets/GameBackdrop.jpg"
+         width="1920" height="1200">
   </div>
 <!-- JS link -->
 <script src="player.js"></script>
