@@ -155,8 +155,8 @@ function animate() {
     // highScore tracker/ current distance 
     c.font = "60px Ariel"
     c.textAlign = "left"
-    currentscorediv.textContent = "Current:" + Math.floor(scrolloffset / 100) + "Yalms"
-    highscorediv.textContent ="High Score:" + highscore + "Yalms" 
+    currentscorediv.textContent = "Current:  " + Math.floor(scrolloffset / 100) + " Yalms"
+    highscorediv.textContent ="High Score:  " + highscore + " Yalms" 
     // c.fillText("Current:" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
     // c.fillText("High Score:" + highscore + "Yalms", 15, 95)
 
