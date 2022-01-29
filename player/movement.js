@@ -110,7 +110,7 @@ function animate() {
         cancelAnimationFrame(frame)
         c.save()
         c.font = "200px Ariel"
-        c.fillStyle = "red"
+        c.fillStyle = "rgb(102, 21, 52)"
         c.textAlign = "center"
       
         c.fillText("You Have Fallen", canvas.width / 2, canvas.height / 2)
