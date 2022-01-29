@@ -15,19 +15,21 @@ class Player {
         this.width = 45
         this.height = 100
         this.image = image
+        this.sprite = new Sprite(this.image)
+        this.sprite.startAnimation()
+        this.a = 0
         this.canJump = 2
     }
 
     // sprite image/ character
     draw() {
+        // c.drawImage(image, 10, 0, 30, 30, this.position.x, this.position.y, 100, 100)
+        this.sprite.showSprite(c, this.position)
+            // this.a++ 
+            // this.a = this.a % this.sprite.coloumns
         //     c.fillStyle = 'green'
         //    c.fillRect(this.position.x,
         //         this.position.y, this.width, this.height)
-        if (this.image) {
-            c.drawImage(image, 10, 0, 30, 30, this.position.x, this.position.y, 100, 100)
-        } else {
-            console.log("noImage")
-        }
     }
 
     //     drag(){

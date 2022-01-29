@@ -138,7 +138,6 @@ function animate() {
     }
 
     // highScore tracker/ current distance 
-    console.log(scrolloffset)
     c.font = "60px Ariel"
     c.textAlign = "left"
     c.fillText("Current:" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
@@ -164,19 +163,16 @@ animate()
 window.addEventListener('keydown', ({
     keyCode
 }) => {
-    // console.log(keyCode)
-
-    switch (keyCode) {
+   
+     switch (keyCode) {
         case 65:
-            // console.log('left')
-            keys.left.pressed = true
-            // player.velocity.x -= 1
+             keys.left.pressed = true
+             player.sprite.setAnimationType("run")
             break
 
         case 68:
-            // console.log('right')
             keys.right.pressed = true
-            // player.velocity.x += 1
+            player.sprite.setAnimationType("run")
             break
 
         case 87:
@@ -218,12 +214,14 @@ window.addEventListener('keyup', ({
             // console.log('left')
             keys.left.pressed = false
             player.velocity.x = 0
+            player.sprite.setAnimationType("idol")
             break
 
         case 68:
             // console.log('right')
             keys.right.pressed = false
             player.velocity.x = 0
+            player.sprite.setAnimationType("idol")
             break
 
         case 87:
