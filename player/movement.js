@@ -43,8 +43,8 @@ function Generateplat() {
     var height = 30
     var lastX = 50
     var lastY = 0
-    var minY = player.height + 130
-    var maxY = canvas.height - 15
+    var minY = player.height + 130 
+    var maxY = canvas.height - 30
     var nextY = minY + Math.random() * (maxY - minY)
     for (let i = 0; i < 1000; i++) {
         platforms.push(new Platform({
@@ -54,10 +54,10 @@ function Generateplat() {
         if (Math.random() > 0.75) {
             var lol = 0
         
-            while (nextY - lastY < - 145 || nextY - lastY == 0) {
+            while (lastY - nextY > 400 || nextY - lastY == 0) {
             nextY = minY + Math.random() * (maxY - minY)
             lol++
-            if (lol > 5) break;
+            // if (lol > 5) break;
         }
 
 
@@ -148,6 +148,7 @@ function animate() {
     c.font = "60px Ariel"
     c.textAlign = "left"
     c.fillText("*" + Math.floor(scrolloffset / 100) + "Yalms", 15, 50)
+    // c.fillText("*" + Math.floor(player.position.y) + "Yalms", 15, 85)
 
     // MESSY COLLISION DETECTION
     platforms.forEach(platform => {
@@ -156,6 +157,7 @@ function animate() {
             player.position.x + player.width >= platform.position.x &&
             player.position.x <= platform.position.x + platform.width) {
             player.velocity.y = 0
+            player.canJump = 2
         }
     })
 
@@ -186,9 +188,19 @@ window.addEventListener('keydown', ({
         case 87:
             // console.log('jump')
             keys.jump.pressed = true
-            player.velocity.y -= 20
+            // player.velocity.y -= 20
+            if(player.canJump){
+                player.velocity.y -= 20
+                if(player.velocity.y<-20){
+                    player.velocity.y = -20
+                }
+                player.canJump-- 
+                console.log(player.velocity.y)
+            }
+
             // player.jump()
             break
+            
 
         case 83:
             // console.log('fall')

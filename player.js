@@ -15,7 +15,7 @@ class Player {
         this.width = 45
         this.height = 100
         this.image = image
-        this.a = 0
+        this.canJump = 2
     }
 
     // sprite image/ character
