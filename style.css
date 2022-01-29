@@ -8,7 +8,6 @@
 
 #Restart.show{
   visibility: visible;
-
 }
 
 .button {
@@ -29,6 +28,10 @@
 
 .button:active {
   background-color: #3e8e41;
-  box-shadow: 0 5px #666;
+  box-shadow: 0 5px rgb(156, 39, 39);
   transform: translateY(4px);
+}
+
+body{
+  background-color: rgb(99, 95, 91);
 }

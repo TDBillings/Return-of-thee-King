@@ -1,16 +1,14 @@
-const canvas = document.querySelector('canvas')
-
 // c = context 
+const canvas = document.querySelector('canvas')
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
 const c = canvas.getContext('2d')
+const platformimage = document.getElementById('rock ledge');
+const gravity = 0.5
+const player = new Player()
+const platforms = []
 // const image = document.getElementById('source');
 
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-
-const platformimage = document.getElementById('rock ledge');
-
-const gravity = 0.5
-// var distance = 0
 let scrolloffset = 0
 let highscore = Math.floor(window.localStorage.getItem("High Score"))
 
@@ -26,19 +24,13 @@ class Platform {
         }
         this.width = 200
         this.height = 30
+        this.platformimage = platformimage
     }
     draw() {
-        c.fillStyle = 'black'
-        c.fillRect(this.position.x, this.position.y,
-            this.width, this.height)
+       
+        c.drawImage(platformimage, this.position.x, this.position.y, 200, 40)
     }
 }
-
-const player = new Player()
-// const platform = new Platform(50, 600)
-const platforms = []
-//  [new Platform({x:50, y:600
-// }), new Platform({x:150, y:700})]
 
 // Random platforms
 function Generateplat() {
@@ -62,15 +54,12 @@ function Generateplat() {
             far++
             // if (far > 5) break;
         }
-
-
             lastX += width
             if (Math.random() > 0.55) lastX += Math.floor(width * (1 + Math.random()));
         }
+
         lastX += width
         lastY = nextY * 1
-
-        console.log(nextY, lastY, nextY - lastY)
     }
 }
 
@@ -101,34 +90,30 @@ function animate() {
         platform.draw()
     })
 
-
+// Lose Condition
     if (player.position.y > canvas.height - player.height) {
         cancelAnimationFrame(frame)
         c.save()
         c.font = "200px Ariel"
         c.fillStyle = "red"
         c.textAlign = "center"
-        c.fillText("You Fell", canvas.width / 2, canvas.height / 2)
+      
+        c.fillText("You Have Fallen", canvas.width / 2, canvas.height / 2)
         c.restore()
-        deathButton()
-        console.log("DEAD")
+        restart()
+       
+        // Save score to PC
         if(highscore < Math.floor(scrolloffset / 100)){
             window.localStorage.setItem("High Score", Math.floor(scrolloffset / 100))
         }
-
-        
     }
-
-    function deathButton(){
+    function restart(){
         var element = document.getElementById("Restart");
         element.classList.add("show")
     }
 
-    
-
-
     // player movement
-    if (keys.right.pressed && player.position.x < 600) {
+    if (keys.right.pressed && player.position.x < 300) {
         player.velocity.x = 7
     } else if (keys.left.pressed && player.position.x > 300) {
         player.velocity.x = -7
@@ -152,6 +137,7 @@ function animate() {
 
     }
 
+    // highScore tracker/ current distance 
     console.log(scrolloffset)
     c.font = "60px Ariel"
     c.textAlign = "left"
