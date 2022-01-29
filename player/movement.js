@@ -7,6 +7,8 @@ const c = canvas.getContext('2d')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
+const platformimage = document.getElementById('rock ledge');
+
 const gravity = 0.5
 // var distance = 0
 let scrolloffset = 0
@@ -53,12 +55,12 @@ function Generateplat() {
             y: nextY
         }))
         if (Math.random() > 0.75) {
-            var lol = 0
+            var far = 0
         
             while (lastY - nextY > 400 || nextY - lastY == 0) {
             nextY = minY + Math.random() * (maxY - minY)
-            lol++
-            // if (lol > 5) break;
+            far++
+            // if (far > 5) break;
         }
 
 

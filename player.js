@@ -1,4 +1,4 @@
-const image = document.getElementById('source');
+const image = document.getElementById('character sprite');
 
 
 class Player {
