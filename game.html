@@ -6,6 +6,24 @@
     <title>Return Of-Thy King</title>
 </head>
 <body>
+
+    <audio id = "MyAudio"loop controller autoplay>
+        <source src="./Assets/RangerMusic.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+      </audio>
+
+      <script>
+          var music = document.getElementById("MyAudio");
+
+          function getVolume(){
+            alert(music.volume);
+          }
+
+          function setLowVolume(){
+              music.volume = 0.2;
+          }
+
+      </script>
     <!-- no border -->
 
     <div id="High-Score" class="HighScore"></div>
