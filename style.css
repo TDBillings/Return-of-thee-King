@@ -24,7 +24,7 @@
   text-decoration: none;
 }
 
-.button:hover {background-color: #3e8e41}
+.button:hover {background-color: rgb(102, 21, 52)}
 
 .button:active {
   background-color: #3e8e41;
@@ -38,12 +38,38 @@ body{
 
 #Current-Score{
   z-index: 10;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  color: rgb(250, 243, 243);
   position: absolute;
-  text-align: left;
+  left: 0;
+  padding-left: 3%;
+  padding-top: 10px;
+  width: 250px;
+  border: rgb(0, 0, 0);
+  border-style: groove;
+  padding: 20px;
+  margin: 20px;
+  background-color: rgb(102, 21, 52);
+
+
 }
 
 #High-Score{
   z-index: 10;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  color: rgb(250, 243, 243);
   position: absolute;
-  text-align: right;
+  right: 0;
+  padding-left: 90%;
+  padding-top: 10px;
+  width: 250px;
+  border: rgb(0, 0, 0);
+  border-style: groove;
+  padding: 20px;
+  margin: 20px;
+  background-color: rgb(102, 21, 52);
 }
