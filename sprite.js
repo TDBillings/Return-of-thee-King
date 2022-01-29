@@ -16,8 +16,7 @@ class Sprite {
 
         let xOffset = this.image.width/this.coloumns * this.anitmateCol
         let yOffset = this.image.height/this.rows * this.anitmateRow
-        c.drawImage(this.image, this.xOffset + xOffset, this.yOffset + yOffset, this.spriteWidth, this.spriteHeight, position.x, position.y, 100, 100,)
-        console.log(xOffset, this.image.width)    
+        c.drawImage(this.image, this.xOffset + xOffset, this.yOffset + yOffset, this.spriteWidth, this.spriteHeight, position.x, position.y, 100, 100,)    
     }
 
     startAnimation(){
@@ -46,5 +45,12 @@ class Sprite {
 
     }
 
+    // Deathspritefix
+    deathAnimationDone(){
+
+        return this.anitmateRow == 4 && this.anitmateCol == 9 
+    }
 }
+
+
 

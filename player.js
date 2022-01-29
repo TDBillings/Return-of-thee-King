@@ -17,8 +17,8 @@ class Player {
         this.image = image
         this.sprite = new Sprite(this.image)
         this.sprite.startAnimation()
-        this.a = 0
         this.canJump = 2
+        this.speed = 7
     }
 
     // sprite image/ character

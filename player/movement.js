@@ -4,8 +4,9 @@ const canvas = document.querySelector('canvas')
     canvas.height = window.innerHeight
 const c = canvas.getContext('2d')
 const backdrop = document.getElementById('backdrop');
-const backdropscroll = 8
+const backdropscroll = 20
 var backdropwidth = 0
+var momentum = 20*100
 const wallimage = document.getElementById('background wall');
 const platformimage = document.getElementById('rock ledge');
 const gravity = 0.5
@@ -107,45 +108,62 @@ function animate() {
 
 // Lose Condition
     if (player.position.y > canvas.height - player.height) {
-        cancelAnimationFrame(frame)
         c.save()
         c.font = "200px Ariel"
         c.fillStyle = "rgb(102, 21, 52)"
         c.textAlign = "center"
-      
+        
         c.fillText("You Have Fallen", canvas.width / 2, canvas.height / 2)
         c.restore()
         restart()
-       
+        
         // Save score to PC
         if(highscore < Math.floor(scrolloffset / 100)){
             window.localStorage.setItem("High-Score", Math.floor(scrolloffset / 100))
         }
+        
+        if (player.dead && player.sprite.deathAnimationDone()){
+            
+            cancelAnimationFrame(frame)
+            return
+        }
+
+        player.sprite.setAnimationType("die")
+        player.dead = true 
+        return
+
     }
     function restart(){
         var element = document.getElementById("Restart");
         element.classList.add("show")
     }
 
+    // speed increase
+    if (scrolloffset > momentum){
+
+        player.speed += 1
+        momentum += momentum
+    }
+
     // player movement
     if (keys.right.pressed && player.position.x < 300) {
-        player.velocity.x = 7
+        player.velocity.x = player.speed
     } else if (keys.left.pressed && player.position.x > 300) {
-        player.velocity.x = -7
+        player.velocity.x = -player.speed
     } else {
         player.velocity.x = 0
 
         // platform movement
         if (keys.right.pressed) {
-            scrolloffset += 7
+            scrolloffset += player.speed
             platforms.forEach(platform => {
-                platform.position.x -= 7
+                platform.position.x -= player.speed
             })
 
         } else if (keys.left.pressed) {
-            scrolloffset -= 7
+            scrolloffset -= player.speed
             platforms.forEach(platform => {
-                platform.position.x += 7
+                platform.position.x += player.speed
             })
 
         }
@@ -180,6 +198,8 @@ animate()
 window.addEventListener('keydown', ({
     keyCode
 }) => {
+
+    if (player.dead)return
    
      switch (keyCode) {
         case 65:
@@ -225,6 +245,8 @@ window.addEventListener('keyup', ({
     keyCode
 }) => {
     // console.log(keyCode)
+
+    if(player.dead)return
 
     switch (keyCode) {
         case 65:
