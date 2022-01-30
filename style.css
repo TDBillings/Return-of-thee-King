@@ -73,3 +73,17 @@ body{
   margin: 20px;
   background-color: rgb(102, 21, 52);
 }
+ 
+#MyAudio{
+
+  background-color: rgb(102, 21, 52);
+  position: absolute; left: 40%; top: 93%; right: 50%;
+  border: rgb(0, 0, 0);
+  border-style: groove;
+  
+ }
+
+ #menu{
+
+  position: absolute;left: 20; top: 4em;
+ }
