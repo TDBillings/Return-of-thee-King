@@ -4,24 +4,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Return Of-Thy King</title>
+    <script src="audio.js"></script>
 </head>
 <body>
 
-    <audio id = "MyAudio" onload loop control autoplay>
+    <!-- <audio id = "MyAudio"onload loop autoplay>
         <source src="./Assets/RangerMusic2.0.mp3" type="audio/mp3">
       Your browser does not support the audio element.
-      </audio>
+      </audio> -->
 
       <script>
-          var music = document.getElementById("MyAudio");
-
-          function getVolume(){
-            alert(music.volume);
-          }
-
-          function setLowVolume(){
-              music.volume = 0.2;
-          }
+         loadAudio("./Assets/RangerMusic2.0.mp3")
+          
 
       </script>
     <!-- no border -->
@@ -75,6 +69,7 @@
   </div>
 <!-- JS link -->
 <script src="player.js"></script>
+<script src="platforms.js"></script>
 <script src="sprite.js" ></script>
 <script src="player/movement.js" ></script>
 <link rel="stylesheet" href="style.css">
